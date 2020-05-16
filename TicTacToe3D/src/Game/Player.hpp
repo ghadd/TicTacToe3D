@@ -16,6 +16,7 @@ public:
 	~Player();
 
 	void move();
+	std::string getName();
 
 	void setWeapon(Weapon playerWeapon);
 	void setBoard(Board* playerBoard);

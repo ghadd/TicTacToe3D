@@ -37,6 +37,8 @@ private:
 	Board* board;
 	GameState state;
 
+	Result result;
+
 private:
 	BoardState checkBoardState();
 	Player* getWinner();

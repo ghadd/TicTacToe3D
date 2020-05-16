@@ -138,12 +138,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\assets\Point3D.cpp" />
     <ClCompile Include="src\Game\Board.cpp" />
     <ClCompile Include="src\Game\Player.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
     <ClCompile Include="src\Driver.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\assets\Point3D.hpp" />
     <ClInclude Include="src\Game\Board.hpp" />
     <ClInclude Include="src\Game\Player.hpp" />
     <ClInclude Include="src\Game\Game.hpp" />
