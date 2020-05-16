@@ -23,20 +23,24 @@ Player::~Player() {}
 void Player::move() {
 	std::cout << this->name << ", it's your turn." << std::endl;
 
-	int x, y, z;
+	short x, y, z;
 	std::cout << "Enter your move in 3 dimensions: ";
 	std::cin >> x >> y >> z;
 
-	while (this->board->value(x, y, z) != Nothing) {
+	while (this->board->value({ x, y, z }) != Nothing) {
 		std::cout << "This cell is not empty. Choose another one: ";
 		std::cin >> x >> y >> z;
 	}
 
-	this->board->setValue(x, y, z, this->weapon);
+	this->board->setValue({ x, y, z }, this->weapon);
 	std::cout << std::endl;
 
 	std::cout << "Okay. Current state is: " << std::endl;
 	this->board->display();
+}
+
+std::string Player::getName(){
+	return this->name;
 }
 
 void Player::setWeapon(Weapon playerWeapon) {

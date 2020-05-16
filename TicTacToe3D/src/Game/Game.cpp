@@ -37,21 +37,57 @@ void Game::start() {
 	this->state = GameState::Running;
 
 	while (this->state == GameState::Running) {
-		if (this->checkBoardState() != BoardState::OK) {
-			// TODO -> display end results
+		this->players[X]->move();
+
+		BoardState boardState = this->checkBoardState();
+		if (boardState != BoardState::OK) {
+			if (boardState == BoardState::HasWinner) {
+				this->result = Result::Win1;
+
+#ifdef CONSOLE
+				std::cout << "Player " + this->players[X]->getName() + " won" << std::endl;
+#endif // CONSOLE
+			}
+			else {
+				this->result = Result::Draw;
+				
+#ifdef CONSOLE
+				std::cout << "Game ended. It's a draw." << std::endl;
+#endif // CONSOLE
+			}
+
 			this->state = GameState::Closed;
 			break;
 		}
 
-		this->players[X]->move();
 		this->players[O]->move();
+
+		boardState = this->checkBoardState();
+		if (boardState != BoardState::OK) {
+			if (boardState == BoardState::HasWinner) {
+				this->result = Result::Win2;
+#ifdef CONSOLE
+				std::cout << "Player " + this->players[X]->getName() + " won" << std::endl;
+#endif // CONSOLE
+			}
+			else {
+				this->result = Result::Draw;
+
+#ifdef CONSOLE
+				std::cout << "Game ended. It's a draw." << std::endl;
+#endif // CONSOLE
+			}
+
+			this->state = GameState::Closed;
+			break;
+		}
 	}
 }
 
 BoardState Game::checkBoardState()
 {
 	if (!this->board->hasEmptyCell()) return BoardState::HasNoMoves;
-	if (this->board->hasWinner()) return BoardState::HasWinner;
+	if (this->board->hasWinner().win) return BoardState::HasWinner;
 
 	return BoardState::OK;
 }
